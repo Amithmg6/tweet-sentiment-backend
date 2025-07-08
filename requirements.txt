@@ -1,0 +1,6 @@
+# backend/requirements.txt
+Flask
+numpy
+scikit-learn
+nltk
+gunicorn
