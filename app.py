@@ -1,23 +1,25 @@
 # backend/app.py
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
+from flask_cors import CORS # Import CORS
 import pickle
 import re
 import string
 import numpy as np
 import nltk
 from nltk.corpus import stopwords, twitter_samples
-from nltk.stem import PorterStemmer, SnowballStemmer, LancasterStemmer # Import all stemmers for completeness
+from nltk.stem import PorterStemmer, SnowballStemmer, LancasterStemmer
 
-# Download NLTK data if not already present in the Heroku environment
-# Heroku will typically run this on first deploy if missing, or you can
-# include a separate build step if needed.
-# For local testing, ensure these are downloaded:
+# Download NLTK data if not already present in the Heroku/Render environment
+# This is crucial for the preprocessing functions to work.
+# Render's build process should handle this if these lines are present.
 
 nltk.download('stopwords')
 nltk.download('twitter_samples')
+nltk.download('punkt')
 
 
 app = Flask(__name__)
+CORS(app) # Enable CORS for all routes. This is important for your frontend on GitHub Pages to access this API.
 
 # --- Preprocessing and Model Functions (Copied from your sentiment_nb_tweet.py) ---
 
@@ -124,14 +126,10 @@ except Exception as e:
 
 # --- Flask Routes ---
 
-@app.route('/')
-def home():
-    """
-    This route serves the main HTML page.
-    It's useful for local testing, but for GitHub Pages, the frontend
-    will be served separately.
-    """
-    return render_template('index.html') # Assuming index.html is in a 'templates' folder
+# Removed the home route that tried to render index.html
+# @app.route('/')
+# def home():
+#     return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -170,7 +168,4 @@ def predict():
         return jsonify({'error': f'Prediction failed due to an internal server error: {str(e)}'}), 500
 
 if __name__ == '__main__':
-    # When running locally, Flask will look for templates in a 'templates' folder
-    # and static files in a 'static' folder by default.
-    # For Heroku, these paths are handled by the Procfile and buildpack.
-    app.run(debug=True) # Set debug=False for production deployment
+    app.run(debug=True)
