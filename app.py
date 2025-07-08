@@ -13,15 +13,8 @@ from nltk.stem import PorterStemmer, SnowballStemmer, LancasterStemmer # Import 
 # include a separate build step if needed.
 # For local testing, ensure these are downloaded:
 
-try:
-    nltk.data.find('corpora/stopwords')
-except nltk.DownloadError: # Corrected: Use nltk.DownloadError
-    nltk.download('stopwords')
-
-try:
-    nltk.data.find('corpora/twitter_samples')
-except nltk.DownloadError: # Corrected: Use nltk.DownloadError
-    nltk.download('twitter_samples')
+nltk.download('stopwords')
+nltk.download('twitter_samples')
 
 
 app = Flask(__name__)
