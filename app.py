@@ -12,13 +12,15 @@ from nltk.stem import PorterStemmer, SnowballStemmer, LancasterStemmer # Import 
 # Heroku will typically run this on first deploy if missing, or you can
 # include a separate build step if needed.
 # For local testing, ensure these are downloaded:
+
 try:
     nltk.data.find('corpora/stopwords')
-except nltk.downloader.DownloadError:
+except nltk.DownloadError: # Corrected: Use nltk.DownloadError
     nltk.download('stopwords')
+
 try:
     nltk.data.find('corpora/twitter_samples')
-except nltk.downloader.DownloadError:
+except nltk.DownloadError: # Corrected: Use nltk.DownloadError
     nltk.download('twitter_samples')
 
 
