@@ -154,11 +154,13 @@ def predict():
         # y_pred > 0.5 -> Positive (1)
         # y_pred <= 0.5 -> Negative (0)
         # To include 'Neutral', we'll define a small range around 0.5
-        sentiment_label = "Neutral" # Default to Neutral if close to 0.5
-        if y_pred > 0.55: # Clearly positive
-            sentiment_label = "Positive"
-        elif y_pred < 0.45: # Clearly negative
-            sentiment_label = "Negative"
+        sentiment_label = "..." # Default to Neutral if close to 0.5
+        if y_pred > 0.5: # Clearly positive
+            sentiment_label = "Positive sentiment"
+        elif y_pred == 0: # Clearly neutral
+            sentiment_label = "Neutral sentiment"
+        else:
+            sentiment_label = "Negative sentiment"
         # Otherwise, it falls between 0.45 and 0.55, considered Neutral
 
         return jsonify({'sentiment': sentiment_label, 'probability': float(y_pred)})
