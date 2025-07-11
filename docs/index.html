@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Sentiment Analysis: A Machine Learning Project</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom font for a professional look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light gray background */
+            color: #334155; /* Darker gray text */
+        }
+        .section-title {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px; /* Underline width */
+            height: 3px;
+            background-color: #3b82f6; /* Blue underline */
+            border-radius: 9999px; /* Rounded ends for the underline */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="min-h-screen flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 sm:p-10 lg:p-12">
+
+            <!-- Header Section -->
+            <header class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-4 rounded-md">
+                    Tweet Sentiment Analysis: <br class="sm:hidden"> A Machine Learning Approach
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-600 mb-6">
+                    Classifying tweet sentiments as positive, negative, or neutral using a custom logistic regression model.
+                </p>
+                <p class="text-md text-gray-500">By Amith MG</p>
+            </header>
+
+            <!-- Project Overview Section -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 section-title mb-6">1. Project Overview</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Understanding public opinion and sentiment is crucial in various domains, from brand monitoring to social trend analysis. This project focuses on building a machine learning model to classify the sentiment of tweets as either positive, negative, or neutral.
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
+                    <li><strong class="text-gray-800">Problem:</strong> Automatically categorize the emotional tone of short, informal text (tweets).</li>
+                    <li><strong class="text-gray-800">Goal:</i> Develop a robust predictive model capable of accurately classifying tweet sentiment.</li>
+                    <li><strong class="text-gray-800">Impact:</strong> Provide a tool for rapid sentiment assessment, valuable for social listening, market research, and public relations.</li>
+                </ul>
+                <div class="text-center mt-8">
+                    <a href="https://amithmg6.github.io/tweet-sentiment-frontend/" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300 ease-in-out transform hover:scale-105">
+                        <i class="fas fa-play-circle mr-2"></i> Try the Live Demo!
+                    </a>
+                </div>
+            </section>
+
+            <!-- Data & Methodology Section -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 section-title mb-6">2. Data & Methodology</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Data Summary</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li><strong class="text-gray-800">Source(s):</strong> Utilized the <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">nltk.corpus.twitter_samples</span> dataset, containing pre-labeled positive and negative tweets.</li>
+                            <li><strong class="text-gray-800">Key Features:</strong> Features were engineered based on the frequency of words appearing in positive vs. negative contexts within the training corpus.</li>
+                            <li><strong class="text-gray-800">Preprocessing:</b> Tweets underwent rigorous cleaning including removal of stock tickers, retweets, hyperlinks, hashtags, punctuation, numbers, lowercasing, tokenization, stop word removal, and stemming (using <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">SnowballStemmer</span>).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Approach</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li><strong class="text-gray-800">Custom Model:</strong> A Logistic Regression model was built from scratch, including custom implementations of the sigmoid function, cost function, and gradient descent.</li>
+                            <li><strong class="text-gray-800">Feature Extraction:</strong> A frequency dictionary (<span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">freqs</span>) was constructed mapping (word, sentiment) pairs to their counts. Features for each tweet were then extracted as a vector representing bias, sum of positive word counts, and sum of negative word counts.</li>
+                            <li><strong class="text-gray-800">Training:</strong> The model was trained using gradient descent with a predefined learning rate and number of iterations to optimize the weight vector (<span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">theta</span>).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results & Insights Section -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 section-title mb-6">3. Key Results & Insights</h2>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-6">
+                    <li><strong class="text-gray-800">Model Performance:</strong> The trained Logistic Regression model achieved an <strong class="text-blue-600">accuracy of approximately 99.42%</strong> on the test set, demonstrating strong classification capability for positive/negative tweets.</li>
+                    <li><strong class="text-gray-800">Sentiment Range:</strong> The model outputs a probability (0 to 1). Tweets with a probability above 0.55 are classified as 'Positive', below 0.45 as 'Negative', and between 0.45 and 0.55 as 'Neutral'.</li>
+                    <li><strong class="text-gray-800">Feature Influence:</strong> The model's weights (<span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">theta</span>) directly reflect the influence of positive and negative word counts on the final sentiment prediction.</li>
+                </ul>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-inner text-center">
+                    <!-- The image placeholder has been removed -->
+                </div>
+            </section>
+
+            <!-- Tools & Technologies Section -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 section-title mb-6">4. Tools & Technologies</h2>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <li><strong class="text-gray-800">Languages:</strong> Python, HTML, CSS (Tailwind CSS), JavaScript</li>
+                    <li><strong class="text-gray-800">Key Python Libraries:</strong> <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">numpy</span>, <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">nltk</span>, <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">pickle</span>, <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">Flask</span>, <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">flask-cors</span>, <span class="font-mono text-sm bg-gray-200 px-1 py-0.5 rounded">gunicorn</span></li>
+                    <li><strong class="text-gray-800">Development Environment:</strong> Jupyter Notebooks, VS Code</li>
+                    <li><strong class="text-gray-800">Version Control:</strong> Git</li>
+                    <li><strong class="text-gray-800">Deployment:</strong> Frontend on <strong class="text-blue-600">GitHub Pages</strong>, Backend API on <strong class="text-blue-600">Render</strong></li>
+                </ul>
+            </section>
+
+            <!-- Conclusion & Future Work Section -->
+            <section class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 section-title mb-6">5. Conclusion & Future Work</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    This project successfully demonstrates the development and deployment of a custom machine learning model for tweet sentiment classification. By building the logistic regression from scratch, a deeper understanding of its mechanics was achieved, resulting in a highly accurate classifier for the given dataset.
+                </p>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong class="text-gray-800">Future Work 1:</strong> Expand to multi-class sentiment (e.g., happy, sad, angry) or fine-grained emotion detection.</li>
+                    <li><strong class="text-gray-800">Future Work 2:</strong> Explore more advanced NLP techniques and models (e.g., Transformers like BERT) for potentially higher accuracy and nuanced understanding.</li>
+                    <li><strong class="text-gray-800">Future Work 3:</i> Integrate with live Twitter (X) API for real-time sentiment monitoring of specific topics or hashtags.</li>
+                    <li><strong class="text-gray-800">Future Work 4:</strong> Develop a more interactive dashboard to visualize sentiment trends over time or across different categories of tweets.</li>
+                </ul>
+            </section>
+
+            <!-- Contact & Links Section -->
+            <section class="text-center">
+                <h2 class="text-3xl font-bold text-gray-800 section-title mb-6 mx-auto w-fit">Connect with Me</h2>
+                <div class="flex justify-center space-x-6 text-2xl">
+                    <a href="https://amithmg6.github.io/tweet-sentiment-frontend/" target="_blank" class="text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out" aria-label="GitHub Frontend Live Demo">
+                        <i class="fas fa-globe rounded-full p-2 bg-gray-100 hover:bg-blue-50 shadow-sm"></i>
+                    </a>
+                    <a href="https://github.com/YOUR_GITHUB_USERNAME/tweet-sentiment-frontend" target="_blank" class="text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out" aria-label="GitHub Frontend Repository">
+                        <i class="fab fa-github rounded-full p-2 bg-gray-100 hover:bg-blue-50 shadow-sm"></i>
+                    </a>
+                    <a href="https://github.com/Amithmg6/tweet-sentiment-backend" target="_blank" class="text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out" aria-label="GitHub Backend Repository">
+                        <i class="fab fa-github rounded-full p-2 bg-gray-100 hover:bg-blue-50 shadow-sm"></i>
+                    </a>
+                    <a href="https://in.linkedin.com/in/amithmg6" target="_blank" class="text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out" aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin rounded-full p-2 bg-gray-100 hover:bg-blue-50 shadow-sm"></i>
+                    </a>
+                    <a href="mailto:amithds2017@gmail.com" class="text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out" aria-label="Email Address">
+                        <i class="fas fa-envelope rounded-full p-2 bg-gray-100 hover:bg-blue-50 shadow-sm"></i>
+                    </a>
+                </div>
+                <p class="text-gray-500 text-sm mt-4">Amith MG | amithds2017@gmail.com</p>
+            </section>
+
+        </div>
+    </div>
+</body>
+</html>
